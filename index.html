@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Journée de la Rose 🌹</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nanum+Myeongjo:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:      #c0485a;
+      --rose-pale: #e8929e;
+      --cream:     #fff8f5;
+      --gold:      #c9a96e;
+      --dark:      #2a1a1e;
+      --petal1:    #f2b8c0;
+      --petal2:    #e07585;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── PETALS FALLING ─── */
+    .petal-container {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -60px;
+      width: 18px; height: 22px;
+      background: radial-gradient(ellipse at 40% 40%, var(--petal1), var(--petal2));
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      opacity: 0.75;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: .85; }
+      50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+    }
+
+    /* ─── LANG BUTTON ─── */
+    #lang-btn {
+      position: fixed;
+      top: 22px; right: 24px;
+      z-index: 100;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: .9rem;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: .05em;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(192,72,90,.4);
+      transition: background .3s, transform .2s;
+    }
+    #lang-btn:hover { background: var(--rose-pale); transform: scale(1.05); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 80px;
+    }
+
+    .date-badge {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,169,110,.12);
+      border: 1px solid rgba(201,169,110,.35);
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+      animation: fadeDown .8s ease both;
+    }
+
+    .rose-icon {
+      font-size: 5rem;
+      line-height: 1;
+      margin-bottom: 20px;
+      animation: bloom .9s cubic-bezier(.34,1.56,.64,1) .2s both;
+      filter: drop-shadow(0 6px 18px rgba(192,72,90,.3));
+    }
+    @keyframes bloom {
+      from { transform: scale(0) rotate(-20deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      color: var(--rose);
+      line-height: 1.15;
+      max-width: 700px;
+      animation: fadeDown .8s ease .3s both;
+    }
+    .kr h1 { font-family: 'Nanum Myeongjo', serif; }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--rose-pale);
+      margin-top: 14px;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      animation: fadeDown .8s ease .45s both;
+    }
+    .kr .subtitle { font-family: 'Nanum Myeongjo', serif; font-style: normal; }
+
+    .divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 48px auto 0; width: 320px; max-width: 90%;
+      animation: fadeUp .8s ease .6s both;
+    }
+    .divider span { font-size: 1.3rem; }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose-pale), transparent);
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── CARDS ─── */
+    .cards {
+      position: relative; z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 580px) { .cards { grid-template-columns: 1fr; } }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 30px;
+      box-shadow: 0 8px 40px rgba(192,72,90,.10);
+      border: 1px solid rgba(192,72,90,.12);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease, box-shadow .3s;
+    }
+    .card:hover {
+      box-shadow: 0 16px 60px rgba(192,72,90,.18);
+      transform: translateY(-4px) !important;
+    }
+    .card.visible { opacity: 1; transform: translateY(0); }
+
+    .card-icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--rose);
+      margin-bottom: 12px;
+    }
+    .kr .card h2 { font-family: 'Nanum Myeongjo', serif; }
+    .card p {
+      font-size: .97rem;
+      line-height: 1.75;
+      color: #5a3a40;
+    }
+
+    .card-wide {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #fff5f6 0%, #fff 100%);
+      text-align: center;
+      padding: 52px 40px;
+    }
+    .card-wide .big-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: var(--rose);
+      line-height: 1.6;
+    }
+    .kr .card-wide .big-text { font-family: 'Nanum Myeongjo', serif; }
+    .card-wide .heart-row { font-size: 2rem; margin-top: 20px; letter-spacing: .3em; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 30px 24px 50px;
+      font-size: .85rem;
+      color: var(--rose-pale);
+      font-style: italic;
+    }
+
+    /* ─── HIDE/SHOW ─── */
+    [data-lang] { transition: opacity .35s; }
+    body.kr [data-lang="fr"] { display: none; }
+    body.fr [data-lang="kr"] { display: none; }
+  </style>
+</head>
+<body class="fr">
+
+  <!-- BOUTON LANGUE -->
+  <button id="lang-btn">
+    <span data-lang="fr">🇰🇷 한국어로 보기</span>
+    <span data-lang="kr">🇫🇷 Voir en français</span>
+  </button>
+
+  <!-- PÉTALES -->
+  <div class="petal-container" id="petals"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="date-badge">
+      <span data-lang="fr">14 mai · Journée de la Rose</span>
+      <span data-lang="kr">5월 14일 · 로즈 데이</span>
+    </div>
+
+    <div class="rose-icon">🌹</div>
+
+    <h1>
+      <span data-lang="fr">Pour toi, ma rose de Séoul</span>
+      <span data-lang="kr">서울의 내 장미에게</span>
+    </h1>
+
+    <p class="subtitle">
+      <span data-lang="fr">de Paris avec tout mon amour</span>
+      <span data-lang="kr">파리에서 온 사랑을 담아</span>
+    </p>
+
+    <div class="divider">
+      <span>🌸</span>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="cards">
+
+    <div class="card">
+      <span class="card-icon">🗺️</span>
+      <h2>
+        <span data-lang="fr">8 935 kilomètres</span>
+        <span data-lang="kr">8,935 킬로미터</span>
+      </h2>
+      <p>
+        <span data-lang="fr">C'est la distance entre nous. Mais ce soir, en pensant à toi, elle disparaît complètement.</span>
+        <span data-lang="kr">우리 사이의 거리예요. 하지만 오늘 밤, 당신을 생각하면 그 거리가 완전히 사라져요.</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🕰️</span>
+      <h2>
+        <span data-lang="fr">8 heures de décalage</span>
+        <span data-lang="kr">8시간의 시차</span>
+      </h2>
+      <p>
+        <span data-lang="fr">Quand tu dors, je pense à toi. Je regarde tous les soirs une photo de nous et pense au moment où on pourra en prendre de nouvelles !</span>
+        <span data-lang="kr">당신이 잠들 때, 나는 당신을 생각해요. 매일 밤 우리 사진을 보면서 새로운 사진을 찍을 그 순간을 생각해요!</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🌹</span>
+      <h2>
+        <span data-lang="fr">Le jour de la rose</span>
+        <span data-lang="kr">로즈 데이</span>
+      </h2>
+      <p>
+        <span data-lang="fr">En Corée, le 14 mai est le jour où l'on offre des roses à ceux qu'on aime. Je t'en envoie une digitale, mais le sentiment, lui, est bien réel.</span>
+        <span data-lang="kr">한국에서 5월 14일은 사랑하는 사람에게 장미를 선물하는 날이에요. 디지털 장미를 보내지만, 그 마음은 진심이에요.</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">✈️</span>
+      <h2>
+        <span data-lang="fr">Bientôt réunis</span>
+        <span data-lang="kr">곧 다시 만나요</span>
+      </h2>
+      <p>
+        <span data-lang="fr">La distance n'est que temporaire. Chaque journée qui passe nous rapproche un peu plus. Je t'attends, je nous attends.</span>
+        <span data-lang="kr">이 거리는 일시적일 뿐이에요. 매일이 지날수록 우리는 조금씩 더 가까워지고 있어요. 당신을 기다리고 있어요.</span>
+      </p>
+    </div>
+
+    <div class="card card-wide">
+      <p class="big-text">
+        <span data-lang="fr">
+          « La distance rend toute chose<br>infiniment plus précieuse. »<br>
+          <em style="font-size:.7em; color: var(--gold); letter-spacing:.05em;">— Arthur C. Clarke</em>
+        </span>
+        <span data-lang="kr">
+          「거리는 모든 것을<br>무한히 더 소중하게 만든다.」<br>
+          <em style="font-size:.7em; color: var(--gold); letter-spacing:.05em;">— 아서 C. 클라크</em>
+        </span>
+      </p>
+      <div class="heart-row">🤍🌹🤍</div>
+    </div>
+
+  </section>
+
+  <footer>
+    <span data-lang="fr">Fait avec amour · depuis la France · 14 mai 2026</span>
+    <span data-lang="kr">사랑을 담아 · 프랑스에서 · 2026년 5월 14일</span>
+  </footer>
+
+  <script>
+    // ─── PÉTALES ───
+    const container = document.getElementById('petals');
+    const COUNT = 22;
+    for (let i = 0; i < COUNT; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.cssText = `
+        left: ${Math.random()*100}%;
+        width: ${12 + Math.random()*14}px;
+        height: ${14 + Math.random()*16}px;
+        animation-duration: ${5 + Math.random()*7}s;
+        animation-delay: ${-Math.random()*10}s;
+        opacity: ${.4 + Math.random()*.5};
+        transform: rotate(${Math.random()*360}deg);
+      `;
+      container.appendChild(p);
+    }
+
+    // ─── LANGUE ───
+    const btn  = document.getElementById('lang-btn');
+    let lang   = 'fr';
+
+    btn.addEventListener('click', () => {
+      lang = lang === 'fr' ? 'kr' : 'fr';
+      document.body.className = lang;
+    });
+
+    // ─── SCROLL REVEAL ───
+    const cards = document.querySelectorAll('.card');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, idx) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), idx * 120);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: .12 });
+    cards.forEach(c => io.observe(c));
+  </script>
+</body>
+</html>
